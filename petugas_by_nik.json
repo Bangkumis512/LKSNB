@@ -1,0 +1,355 @@
+{
+  "artifacts": {
+    "lksnb-app": {
+      "public": {
+        "data": {
+          "app_users": {
+              "22587998": {
+                "area": "Bandar Lampung",
+                "nama": "Muhammad Rofiuddin",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22587917": {
+                "area": "Bandar Lampung",
+                "nama": "Pipih Agustini",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22588274": {
+                "area": "Bandar Lampung",
+                "nama": "Rizky Novitra",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22588177": {
+                "area": "Bandar Lampung",
+                "nama": "Devi Susanti",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1" 
+              },
+              "22588275": {
+                "area": "Bandar Lampung",
+                "nama": "Joko Siyanto",
+                "posisi": "IFM",
+                "password": "Btpnsyariah.1"
+              },
+              "22588373": {
+                "area": "Bandar Lampung",
+                "nama": "Feni Veranita Effendi",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22580733": {
+                "area": "DI Yogyakarta",
+                "nama": "Atiqoh Wahyuningsih",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22578954": {
+                "area": "DI Yogyakarta",
+                "nama": "Arif Adrianto",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22587582": {
+                "area": "DI Yogyakarta",
+                "nama": "Umi Mujahadah",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22588880": {
+                "area": "Kab. Banyumas",
+                "nama": "Farhan Muhammad 'Afif",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22580766": {
+                "area": "Kab. Banyumas",
+                "nama": "Aprilia Rahmawati",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22585859": {
+                "area": "Kab. Banyumas",
+                "nama": "Nur Rachmawati",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22580167": {
+                "area": "Kab. Banyumas",
+                "nama": "Hindarwan",
+                "posisi": "IFM",
+                "password": "Btpnsyariah.1"
+              },
+              "22580171": {
+                "area": "Kab. Banyumas",
+                "nama": "Danang Dwi Anggoro",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22589839": {
+                "area": "Kab. Langkat",
+                "nama": "Hilda Puspita",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22589842": {
+                "area": "Kab. Langkat",
+                "nama": "Rina Suriana",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22589840": {
+                "area": "Kab. Langkat",
+                "nama": "Krisna Wahyudha",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22589841": {
+                "area": "Kab. Langkat",
+                "nama": "Maruba Christian Sinaga",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22589843": {
+                "area": "Kab. Langkat",
+                "nama": "Roni Syafzli",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22691381": {
+                "area": "Kab. Langkat",
+                "nama": "Panut Maulana",
+                "posisi": "IFM",
+                "password": "Btpnsyariah.1"
+              },
+              "22691513": {
+                "area": "Kab. Sleman",
+                "nama": "Khoiri Rubiyanto",
+                "posisi": "IFM",
+                "password": "Btpnsyariah.1"
+              },
+              "22588747": {
+                "area": "Kota Cirebon",
+                "nama": "Untung Wijaya",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22589575": {
+                "area": "Kota Cirebon",
+                "nama": "Wawan Hermawan",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22588745": {
+                "area": "Kota Cirebon",
+                "nama": "Aldi Ramadan",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22580170": {
+                "area": "Kota Cirebon",
+                "nama": "Raharjo Hadinoto, S.E",
+                "posisi": "IFM",
+                "password": "Btpnsyariah.1"
+              },
+              "22588746": {
+                "area": "Kota Cirebon",
+                "nama": "Mukhamad Taqyudin",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22586356": {
+                "area": "Kota Makassar",
+                "nama": "Wiwi Sumarwi",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22586357": {
+                "area": "Kota Makassar",
+                "nama": "Jernih Amalia Rahman",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22579681": {
+                "area": "Kota Makassar",
+                "nama": "Rizqah",
+                "posisi": "IFM",
+                "password": "Btpnsyariah.1"
+              },
+              "22580091": {
+                "area": "Kota Makassar",
+                "nama": "Nuraeni N",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22579679": {
+                "area": "Kota Makassar",
+                "nama": "Irawati",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22580092": {
+                "area": "Kota Makassar",
+                "nama": "M. Wahyu Anugrah",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22589138": {
+                "area": "Kota Malang",
+                "nama": "Bangkit Dwi Cahyono",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22589034": {
+                "area": "Kota Malang",
+                "nama": "Asri Dwi Indriana",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22691282": {
+                "area": "Kota Malang",
+                "nama": "Henri Yudho Wulansakti",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22589036": {
+                "area": "Kota Malang",
+                "nama": "Rizky Rahayu Utomo",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22589035": {
+                "area": "Kota Malang",
+                "nama": "Nur Cholis Majid",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22588986": {
+                "area": "Kota Malang",
+                "nama": "Citra Larasati",
+                "posisi": "IFM",
+                "password": "Btpnsyariah.1"
+              },
+              "22588960": {
+                "area": "Kota Medan",
+                "nama": "Sri Asnani",
+                "posisi": "IFM",
+                "password": "Btpnsyariah.1"
+              },
+              "22588912": {
+                "area": "Kota Medan",
+                "nama": "Imelda Tersia Pasaribu",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22588909": {
+                "area": "Kota Medan",
+                "nama": "Muhammad Fajri",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22588910": {
+                "area": "Kota Medan",
+                "nama": "Natalia Sihotang",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22588911": {
+                "area": "Kota Medan",
+                "nama": "Dinda Habibi Lubis",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22587670": {
+                "area": "Kota Palembang",
+                "nama": "Dian Ari Saputra",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22583666": {
+                "area": "Kota Palembang",
+                "nama": "Ricky Rachmatri",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22580093": {
+                "area": "Kota Palembang",
+                "nama": "M. Syafran",
+                "posisi": "IFM",
+                "password": "Btpnsyariah.1"
+              },
+              "22589170": {
+                "area": "Kota Palembang",
+                "nama": "Ferdiansyah",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22581930": {
+                "area": "Kota Palembang",
+                "nama": "M Abdulhafiizh Ramadhan",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22588699": {
+                "area": "Tulang Bawang",
+                "nama": "Zikrie",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22588420": {
+                "area": "Tulang Bawang",
+                "nama": "M Fahrul Zaqi",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22588554": {
+                "area": "Tulang Bawang",
+                "nama": "NOVRIANSYAH",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22588374": {
+                "area": "Tulang Bawang",
+                "nama": "Rean Rizkian",
+                "posisi": "IFM",
+                "password": "Btpnsyariah.1"
+              },
+              "22588176": {
+                "area": "Tulang Bawang",
+                "nama": "Ramadhani Saputra",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22692062": {
+                "area": "Kab. Sleman",
+                "nama": "Bambang Priyonggo",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22692497": {
+                "area": "Kab. Banyumas",
+                "nama": "ANDREW ADITYA KUMAMBOW",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "22692817": {
+                "area": "Tulang Bawang",
+                "nama": "Handika Dwi Saputra",
+                "posisi": "IFO",
+                "password": "Btpnsyariah.1"
+              },
+              "13032456": {
+                "area": "Nasional",
+                "nama": "Ali Andi Leon Arkantoro",
+                "posisi": "IFD Head",
+                "password": "Btpnsyariah.1"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+ 
