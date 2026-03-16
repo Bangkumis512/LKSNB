@@ -14,7 +14,8 @@ import {
   getDoc, 
   addDoc, 
   updateDoc, 
-  onSnapshot
+  onSnapshot,
+  enableIndexedDbPersistence
 } from 'firebase/firestore';
 import { 
   Users, 
@@ -26,10 +27,12 @@ import {
   PlusCircle,
   X,
   ChevronRight,
-  FileText
+  FileText,
+  Wifi,
+  WifiOff
 } from 'lucide-react';
 
-// --- KONFIGURASI FIREBASE (Gunakan data dari screenshot Anda) ---
+// --- KONFIGURASI FIREBASE ---
 const firebaseConfig = {
   apiKey: "AIzaSyCSZypOwG8-wwT0FhgHuFqJG5AI2dshM6Q",
   authDomain: "lksnb-5a725.firebaseapp.com",
@@ -45,6 +48,19 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const appId = 'lksnb-production';
+
+// Mengaktifkan offline persistence agar aplikasi tetap berjalan meski koneksi tidak stabil
+try {
+  enableIndexedDbPersistence(db).catch((err) => {
+    if (err.code === 'failed-precondition') {
+      console.warn("Multiple tabs open, persistence can only be enabled in one tab at a time.");
+    } else if (err.code === 'unimplemented') {
+      console.warn("The current browser does not support all of the features required to enable persistence");
+    }
+  });
+} catch (e) {
+  console.error("Error setting up persistence", e);
+}
 
 // --- DATA MASTER PETUGAS ---
 const PETUGAS_MASTER = {
@@ -70,6 +86,7 @@ export default function App() {
   const [user, setUser] = useState(null);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [view, setView] = useState('dashboard');
   
   const [loginNik, setLoginNik] = useState('');
@@ -79,20 +96,37 @@ export default function App() {
   const [visits, setVisits] = useState([]);
   const [tasks, setTasks] = useState([]);
 
+  // Monitor status koneksi internet
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
   useEffect(() => {
     const initAuth = async () => {
       try {
         await signInAnonymously(auth);
       } catch (err) {
         console.error("Auth failed", err);
+        setAuthError('Gagal menghubungkan ke server. Periksa koneksi Anda.');
       }
     };
     initAuth();
 
     const unsubscribe = onAuthStateChanged(auth, async (u) => {
       if (u) {
-        const userDoc = await getDoc(doc(db, 'artifacts', appId, 'users', u.uid, 'profile', 'data'));
-        if (userDoc.exists()) setUserData(userDoc.data());
+        try {
+          const userDoc = await getDoc(doc(db, 'artifacts', appId, 'users', u.uid, 'profile', 'data'));
+          if (userDoc.exists()) setUserData(userDoc.data());
+        } catch (err) {
+          console.error("Error fetching profile", err);
+        }
       }
       setUser(u);
       setLoading(false);
@@ -101,15 +135,26 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    // Hanya ambil data jika user sudah login (profil ada)
     if (!userData || !user) return;
     
-    const unsubVisits = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'visits'), (s) => {
-      setVisits(s.docs.map(d => ({ id: d.id, ...d.data() })));
-    }, (err) => console.error("Visits sync error", err));
+    const unsubVisits = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'visits'), 
+      (s) => {
+        setVisits(s.docs.map(d => ({ id: d.id, ...d.data() })));
+      }, 
+      (err) => {
+        console.error("Visits sync error", err);
+      }
+    );
 
-    const unsubTasks = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'tasks'), (s) => {
-      setTasks(s.docs.map(d => ({ id: d.id, ...d.data() })));
-    }, (err) => console.error("Tasks sync error", err));
+    const unsubTasks = onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'tasks'), 
+      (s) => {
+        setTasks(s.docs.map(d => ({ id: d.id, ...d.data() })));
+      }, 
+      (err) => {
+        console.error("Tasks sync error", err);
+      }
+    );
 
     return () => { unsubVisits(); unsubTasks(); };
   }, [userData, user]);
@@ -117,13 +162,26 @@ export default function App() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setAuthError('');
+    
+    if (!isOnline) return setAuthError('Anda sedang offline. Butuh internet untuk masuk.');
     if (loginPass !== STATIC_PASSWORD) return setAuthError('Password salah!');
+    
     const master = PETUGAS_MASTER[loginNik];
     if (!master) return setAuthError('NIK tidak terdaftar!');
 
-    const profile = { uid: user.uid, nik: loginNik, name: master.nama, role: master.posisi, area: master.area };
-    await setDoc(doc(db, 'artifacts', appId, 'users', user.uid, 'profile', 'data'), profile);
-    setUserData(profile);
+    try {
+      const profile = { 
+        uid: user.uid, 
+        nik: loginNik, 
+        name: master.nama, 
+        role: master.posisi, 
+        area: master.area 
+      };
+      await setDoc(doc(db, 'artifacts', appId, 'users', user.uid, 'profile', 'data'), profile);
+      setUserData(profile);
+    } catch (err) {
+      setAuthError('Gagal menyimpan profil. Coba lagi nanti.');
+    }
   };
 
   const handleLogout = () => {
@@ -133,8 +191,13 @@ export default function App() {
   };
 
   if (loading) return (
-    <div className="h-screen flex items-center justify-center bg-indigo-50 font-black italic text-indigo-900 animate-pulse">
-      MEMUAT SISTEM LKSNB...
+    <div className="h-screen flex flex-col items-center justify-center bg-indigo-50 font-black italic text-indigo-900">
+      <div className="animate-pulse">MEMUAT SISTEM LKSNB...</div>
+      {!isOnline && (
+        <div className="mt-4 flex items-center gap-2 text-red-500 text-sm not-italic font-bold">
+          <WifiOff size={16} /> Sedang Offline
+        </div>
+      )}
     </div>
   );
 
@@ -142,8 +205,13 @@ export default function App() {
     <div className="min-h-screen flex items-center justify-center bg-slate-100 p-4 font-sans">
       <div className="bg-white w-full max-w-md p-8 rounded-3xl shadow-2xl border border-indigo-100">
         <div className="text-center mb-8">
-          <div className="bg-indigo-900 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-xl rotate-3">
+          <div className="bg-indigo-900 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-xl rotate-3 relative">
             <ShieldCheck className="text-white -rotate-3" size={40} />
+            {!isOnline && (
+               <div className="absolute -top-2 -right-2 bg-red-500 p-1.5 rounded-full border-4 border-white">
+                 <WifiOff size={12} className="text-white" />
+               </div>
+            )}
           </div>
           <h1 className="text-2xl font-black text-indigo-950 uppercase tracking-tight">Portal LKSNB</h1>
           <p className="text-gray-400 text-sm mt-1">Sistem Laporan Nasabah Bermasalah</p>
@@ -158,6 +226,7 @@ export default function App() {
             <input required type="password" className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-100 focus:border-indigo-500 rounded-xl transition-all outline-none" placeholder="••••••••" value={loginPass} onChange={e => setLoginPass(e.target.value)} />
           </div>
           {authError && <div className="bg-red-50 text-red-600 p-3 rounded-lg text-xs font-bold flex items-center gap-2 animate-pulse"><AlertCircle size={14}/> {authError}</div>}
+          {!isOnline && <div className="text-center text-amber-600 text-xs font-bold mb-2">Mode Offline Aktif</div>}
           <button type="submit" className="w-full bg-indigo-900 hover:bg-indigo-800 text-white py-4 rounded-xl font-bold shadow-lg shadow-indigo-200 transition-all active:scale-95">MASUK SISTEM</button>
         </form>
       </div>
@@ -171,7 +240,10 @@ export default function App() {
           <div className="bg-white p-1.5 rounded-lg text-indigo-950"><ShieldCheck size={20}/></div>
           <div className="font-black italic tracking-tighter text-xl uppercase">LKSNB <span className="text-indigo-400">Digital</span></div>
         </div>
-        <button onClick={handleLogout} className="p-2.5 bg-indigo-900/50 hover:bg-red-900/40 rounded-xl transition-all"><LogOut size={20}/></button>
+        <div className="flex items-center gap-3">
+          {!isOnline && <WifiOff className="text-red-400 animate-pulse" size={20}/>}
+          <button onClick={handleLogout} className="p-2.5 bg-indigo-900/50 hover:bg-red-900/40 rounded-xl transition-all"><LogOut size={20}/></button>
+        </div>
       </nav>
 
       <div className="container mx-auto p-4 md:p-6 space-y-6">
@@ -190,6 +262,15 @@ export default function App() {
               <p className="text-4xl font-black mt-2">{tasks.filter(t => t.status === 'PENDING').length}</p>
            </div>
         </div>
+
+        {!isOnline && (
+          <div className="bg-amber-100 border-l-4 border-amber-500 p-4 rounded-r-xl">
+            <div className="flex items-center gap-2 text-amber-800 font-bold">
+              <AlertCircle size={20}/> Mode Offline
+            </div>
+            <p className="text-amber-700 text-sm mt-1">Beberapa data mungkin tidak terbaru sampai Anda terhubung kembali.</p>
+          </div>
+        )}
       </div>
     </div>
   );
