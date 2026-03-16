@@ -1,14 +1,24 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// Konfigurasi agar Vite bisa membaca file .jsx langsung di root folder
+// Konfigurasi khusus agar Vite mengenali app.jsx sebagai entry point utama
 export default defineConfig({
   plugins: [react()],
+  // Kita definisikan secara manual letak file app.jsx agar Vercel tidak bingung
+  resolve: {
+    alias: {
+      '@': '/app.jsx',
+    },
+  },
   server: {
     port: 3000
   },
-  // Memastikan Vite mencari file entry point dengan benar
   build: {
     outDir: 'dist',
+    rollupOptions: {
+      input: {
+        main: 'index.html',
+      },
+    },
   }
 })
