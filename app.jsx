@@ -36,12 +36,17 @@ import {
   X
 } from 'lucide-react';
 
-// --- Konfigurasi Firebase ---
-const firebaseConfig = JSON.parse(__firebase_config);
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const appId = typeof __app_id !== 'undefined' ? __app_id : 'lksnb-app-v2';
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCSZypOwG8-wwT0FhgHuFqJG5AI2dshM6Q",
+  authDomain: "lksnb-5a725.firebaseapp.com",
+  databaseURL: "https://lksnb-5a725-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "lksnb-5a725",
+  storageBucket: "lksnb-5a725.firebasestorage.app",
+  messagingSenderId: "86954999611",
+  appId: "1:86954999611:web:8374cffc61d2799fbac11e",
+  measurementId: "G-6NW8PKLTY1"
+};
 
 // --- Data Master Petugas ---
 const PETUGAS_MASTER = {
